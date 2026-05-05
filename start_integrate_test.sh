@@ -24,12 +24,12 @@ array=(
   "dubbogo/simple/proxy"
   "dubbogo/simple/query"
   "dubbogo/simple/uri"
-  "dubbogo/simple/resolve"
   "dubbogo/simple/zookeeper"
   "dubbogo/simple/nacos"
   "dubbogo/simple/triple"
   "dubbogo/simple/direct"
   "dubbogo/simple/prometheus"
+  "dubbogo/multi"
   # http
   "http/grpc"
   "http/simple"

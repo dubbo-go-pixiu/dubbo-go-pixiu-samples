@@ -26,13 +26,13 @@ import (
 )
 
 import (
-	"dubbo.apache.org/dubbo-go/v3/config"
+	"dubbo.apache.org/dubbo-go/v3"
 
 	hessian "github.com/apache/dubbo-go-hessian2"
 )
 
 func init() {
-	config.SetProviderService(new(UserProvider))
+	dubbo.SetProviderService(new(UserProvider))
 	// ------for hessian2------
 	hessian.RegisterPOJO(&User{})
 
@@ -258,7 +258,7 @@ func (u *UserProvider) UpdateUserByName(ctx context.Context, name string, user *
 
 // nolint
 func (u *UserProvider) Reference() string {
-	return "TripleUserProvider"
+	return "com.dubbogo.pixiu.TripleUserService"
 }
 
 // nolint

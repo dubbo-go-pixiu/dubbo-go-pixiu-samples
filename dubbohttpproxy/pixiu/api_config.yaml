@@ -19,9 +19,9 @@
 name: pixiu
 description: pixiu sample
 resources:
-  - path: '/api/v1/test-dubbo/:interface'
+  - path: '/:application/:interface/:method'
     type: restful
-    description: common
+    description: dubbo generic proxy
     methods:
       - httpVerb: POST
         enable: true
@@ -37,10 +37,10 @@ resources:
               mapTo: opt.types
             - name: uri.interface
               mapTo: opt.interface
-            - name: queryStrings.method
+            - name: uri.method
               mapTo: opt.method
-            - name: queryStrings.group
+            - name: headers.x-dubbo-service-group
               mapTo: opt.group
-            - name: queryStrings.version
+            - name: headers.x-dubbo-service-version
               mapTo: opt.version
-          clusterName: "test_dubbo"
+          clusterName: "dubbo-server"

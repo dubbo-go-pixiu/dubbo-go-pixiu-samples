@@ -25,13 +25,13 @@ import (
 )
 
 import (
-	"dubbo.apache.org/dubbo-go/v3/config"
+	"dubbo.apache.org/dubbo-go/v3"
 
 	hessian "github.com/apache/dubbo-go-hessian2"
 )
 
 func init() {
-	config.SetProviderService(new(TeacherProvider))
+	dubbo.SetProviderService(new(TeacherProvider))
 	// ------for hessian2------
 	hessian.RegisterPOJO(&Teacher{})
 
@@ -249,7 +249,7 @@ func (s *TeacherProvider) UpdateTeacherByName(ctx context.Context, name string, 
 
 // nolint
 func (s *TeacherProvider) Reference() string {
-	return "TeacherProvider"
+	return "com.dubbogo.pixiu.TeacherService"
 }
 
 // nolint

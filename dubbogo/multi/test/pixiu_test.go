@@ -29,19 +29,31 @@ import (
 	"github.com/stretchr/testify/assert"
 )
 
-func TestPost1(t *testing.T) {
-	url := "http://localhost:8881/BDTService/org.apache.dubbogo.samples.api.Greeter/SayHello"
-	data := "{\"types\":\"string\",\"values\":\"test\"}"
+func TestGetStudentByName(t *testing.T) {
+	body := get(t, "http://localhost:8882/api/v1/test-dubbo/student/tc-student")
+	assert.Contains(t, body, "0001")
+	assert.Contains(t, body, "tc-student")
+}
+
+func TestGetTeacherByName(t *testing.T) {
+	body := get(t, "http://localhost:8882/api/v1/test-dubbo/teacher/tc-teacher")
+	assert.Contains(t, body, "0001")
+	assert.Contains(t, body, "tc-teacher")
+}
+
+func get(t *testing.T, url string) string {
+	t.Helper()
+
 	client := &http.Client{Timeout: 5 * time.Second}
-	req, err := http.NewRequest("POST", url, strings.NewReader(data))
+	req, err := http.NewRequest(http.MethodGet, url, nil)
 	assert.NoError(t, err)
-	req.Header.Add("Content-Type", "application/json")
-	req.Header.Add("tri-req-id", "test-req-id-1")
-	req.Header.Add("tri-req-id", "test-req-id-2")
 	resp, err := client.Do(req)
 	assert.NoError(t, err)
 	assert.NotNil(t, resp)
-	assert.Equal(t, 200, resp.StatusCode)
-	s, _ := io.ReadAll(resp.Body)
-	assert.True(t, strings.Contains(string(s), "Hello test"))
+	assert.Equal(t, http.StatusOK, resp.StatusCode)
+
+	data, err := io.ReadAll(resp.Body)
+	assert.NoError(t, err)
+	assert.NoError(t, resp.Body.Close())
+	return strings.TrimSpace(string(data))
 }

@@ -18,15 +18,11 @@
 package main
 
 import (
-	"context"
+	"testing"
 )
 
-type GreeterProvider struct{}
-
-func (s *GreeterProvider) SayHello(ctx context.Context, name string) (string, error) {
-	return "Hello " + name, nil
-}
-
-func (s *GreeterProvider) Reference() string {
-	return "org.apache.dubbogo.samples.api.Greeter"
+func TestUserProviderReferenceMatchesServiceInterface(t *testing.T) {
+	if got, want := new(UserProvider).Reference(), "com.dubbogo.pixiu.UserService"; got != want {
+		t.Fatalf("Reference() = %q, want %q", got, want)
+	}
 }
